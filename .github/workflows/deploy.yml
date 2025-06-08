@@ -33,11 +33,14 @@ jobs:
       - name: SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: |
-          mvn clean verify sonar:sonar \
+          export MAVEN_OPTS="-Xmx1G"
+          mvn --batch-mode clean verify sonar:sonar \
             -Dsonar.projectKey=springboot-prometheus-app \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.host.url=${SONAR_HOST_URL} \
+            -Dsonar.login=${SONAR_TOKEN} \
+            -Dsonar.ws.timeout=300        
 
   image:
     name: Build & Scan Docker Image
@@ -76,3 +79,4 @@ jobs:
           kubectl version --client
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
+
