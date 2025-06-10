@@ -33,7 +33,7 @@ jobs:
       - name: SonarQube Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_HOST_URL: http://127.0.0.1:32000 #${{ secrets.SONAR_HOST_URL }}
         run: |
           export MAVEN_OPTS="-Xmx1G"
           mvn --batch-mode clean verify sonar:sonar \
