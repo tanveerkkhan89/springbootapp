@@ -73,7 +73,7 @@ jobs:
       - name: Set up and Deploy to Kubernetes
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 --decode > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
           export KUBECONFIG=$HOME/.kube/config
           kubectl version --client
